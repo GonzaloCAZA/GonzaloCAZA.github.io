@@ -1,21 +1,21 @@
 // Portfolio JavaScript functionality
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // Update current year in footer
     updateCurrentYear();
-    
+
     // Initialize smooth scrolling for navigation links
     initSmoothScrolling();
-    
+
     // Initialize mobile menu
     initMobileMenu();
-    
+
     // Initialize progress bar animations
     initProgressBarAnimations();
-    
+
     // Initialize scroll animations
     initScrollAnimations();
-    
+
     // Initialize contact form functionality
     initContactActions();
 });
@@ -31,18 +31,18 @@ function updateCurrentYear() {
 // Smooth scrolling for navigation links
 function initSmoothScrolling() {
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             e.preventDefault();
-            
+
             const targetId = this.getAttribute('href');
             const targetSection = document.querySelector(targetId);
-            
+
             if (targetSection) {
                 const headerHeight = document.querySelector('.header').offsetHeight;
                 const targetPosition = targetSection.offsetTop - headerHeight - 20;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
@@ -56,11 +56,11 @@ function initSmoothScrolling() {
 function initMobileMenu() {
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const navLinks = document.querySelector('.nav-links');
-    
+
     if (mobileMenuBtn && navLinks) {
-        mobileMenuBtn.addEventListener('click', function() {
+        mobileMenuBtn.addEventListener('click', function () {
             const isOpen = navLinks.style.display === 'flex';
-            
+
             if (isOpen) {
                 navLinks.style.display = 'none';
                 mobileMenuBtn.classList.remove('active');
@@ -78,18 +78,18 @@ function initMobileMenu() {
                 mobileMenuBtn.classList.add('active');
             }
         });
-        
+
         // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
+        document.addEventListener('click', function (e) {
             if (!mobileMenuBtn.contains(e.target) && !navLinks.contains(e.target)) {
                 navLinks.style.display = 'none';
                 mobileMenuBtn.classList.remove('active');
             }
         });
-        
+
         // Close mobile menu when clicking on a link
         navLinks.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
+            link.addEventListener('click', function () {
                 navLinks.style.display = 'none';
                 mobileMenuBtn.classList.remove('active');
             });
@@ -100,20 +100,20 @@ function initMobileMenu() {
 // Progress bar animations
 function initProgressBarAnimations() {
     const progressBars = document.querySelectorAll('.progress-fill');
-    
+
     // Create intersection observer for progress bars
     const progressObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const progressBar = entry.target;
                 const targetWidth = progressBar.style.width;
-                
+
                 // Reset width to 0 and animate
                 progressBar.style.width = '0%';
                 setTimeout(() => {
                     progressBar.style.width = targetWidth;
                 }, 100);
-                
+
                 // Stop observing this element
                 progressObserver.unobserve(progressBar);
             }
@@ -121,7 +121,7 @@ function initProgressBarAnimations() {
     }, {
         threshold: 0.5
     });
-    
+
     progressBars.forEach(bar => {
         progressObserver.observe(bar);
     });
@@ -130,7 +130,7 @@ function initProgressBarAnimations() {
 // Scroll animations for cards and sections
 function initScrollAnimations() {
     const animationElements = document.querySelectorAll('.card, .skill-card, .section-header');
-    
+
     // Create intersection observer for scroll animations
     const scrollObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -143,7 +143,7 @@ function initScrollAnimations() {
         threshold: 0.1,
         rootMargin: '0px 0px -50px 0px'
     });
-    
+
     // Set initial state and observe elements
     animationElements.forEach(element => {
         element.style.opacity = '0';
@@ -158,7 +158,7 @@ function initContactActions() {
     // Handle CV download button
     const downloadBtn = document.querySelector('.btn-primary');
     if (downloadBtn && downloadBtn.textContent.includes('Descargar CV')) {
-        downloadBtn.addEventListener('click', function(e) {
+        downloadBtn.addEventListener('click', function (e) {
             e.preventDefault();
 
             // Crear un enlace temporal para descargar el archivo
@@ -172,47 +172,47 @@ function initContactActions() {
     }
 }
 
-    
-    // Handle contact button in hero section
-    const contactBtns = document.querySelectorAll('.btn-outline');
-    contactBtns.forEach(btn => {
-        if (btn.textContent.includes('Contactar')) {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                // Scroll to contact section
-                const contactSection = document.querySelector('#contact');
-                if (contactSection) {
-                    const headerHeight = document.querySelector('.header').offsetHeight;
-                    const targetPosition = contactSection.offsetTop - headerHeight - 20;
-                    
-                    window.scrollTo({
-                        top: targetPosition,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        }
-    });
+
+// Handle contact button in hero section
+const contactBtns = document.querySelectorAll('.btn-outline');
+contactBtns.forEach(btn => {
+    if (btn.textContent.includes('Contactar')) {
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+            // Scroll to contact section
+            const contactSection = document.querySelector('#contact');
+            if (contactSection) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
+                const targetPosition = contactSection.offsetTop - headerHeight - 20;
+
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    }
+});
 
 
 // Add active navigation link highlighting
 function initActiveNavigation() {
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('.nav-link');
-    
+
     window.addEventListener('scroll', () => {
         let current = '';
         const scrollPosition = window.scrollY + 100;
-        
+
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
             const sectionHeight = section.offsetHeight;
-            
+
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
                 current = section.getAttribute('id');
             }
         });
-        
+
         navLinks.forEach(link => {
             link.classList.remove('active');
             if (link.getAttribute('href') === `#${current}`) {
@@ -223,7 +223,7 @@ function initActiveNavigation() {
 }
 
 // Initialize active navigation
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     initActiveNavigation();
 });
 
@@ -260,10 +260,10 @@ style.textContent = `
 document.head.appendChild(style);
 
 // Add loading animation
-window.addEventListener('load', function() {
+window.addEventListener('load', function () {
     document.body.style.opacity = '0';
     document.body.style.transition = 'opacity 0.5s ease';
-    
+
     setTimeout(() => {
         document.body.style.opacity = '1';
     }, 100);
@@ -298,9 +298,9 @@ function addScrollToTop() {
         align-items: center;
         justify-content: center;
     `;
-    
+
     document.body.appendChild(scrollButton);
-    
+
     // Show/hide scroll button based on scroll position
     window.addEventListener('scroll', () => {
         if (window.scrollY > 300) {
@@ -311,7 +311,7 @@ function addScrollToTop() {
             scrollButton.style.visibility = 'hidden';
         }
     });
-    
+
     // Scroll to top when clicked
     scrollButton.addEventListener('click', () => {
         window.scrollTo({
