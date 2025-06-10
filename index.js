@@ -160,10 +160,18 @@ function initContactActions() {
     if (downloadBtn && downloadBtn.textContent.includes('Descargar CV')) {
         downloadBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            // Here you would typically link to your actual CV file
-            alert('CV no disponible. Por favor, contacta directamente para solicitar el CV.');
+
+            // Crear un enlace temporal para descargar el archivo
+            const link = document.createElement('a');
+            link.href = 'CVGonzaloCano.pdf'; // Ruta del archivo (ajústala si está en una carpeta)
+            link.download = 'CVGonzaloCano.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
         });
     }
+}
+
     
     // Handle contact button in hero section
     const contactBtns = document.querySelectorAll('.btn-outline');
@@ -185,7 +193,7 @@ function initContactActions() {
             });
         }
     });
-}
+
 
 // Add active navigation link highlighting
 function initActiveNavigation() {
