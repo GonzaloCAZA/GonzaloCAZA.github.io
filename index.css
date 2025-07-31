@@ -1,3 +1,26 @@
+.card-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.card-content li {
+    padding-left: 24px;
+    position: relative;
+    margin-bottom: 10px;
+    color: #333;
+    font-size: 14px;
+}
+
+.card-content li::before {
+    content: "✔";
+    position: absolute;
+    left: 0;
+    color: #4CAF50; /* verde profesional */
+    font-size: 14px;
+}
+
+
 /* Reset y Variables */
 * {
     margin: 0;
